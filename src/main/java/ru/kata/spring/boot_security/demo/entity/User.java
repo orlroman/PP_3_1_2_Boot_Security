@@ -33,13 +33,13 @@ public class User {
     @NotBlank(message = "First name should not be empty")
     @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ]+$", message = "First name must contain only letters")
     @Size(max = 128, message = "maximum length 128")
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
     
     @NotBlank(message = "Last name should not be empty")
     @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ]+$", message = "Last name must contain only letters")
     @Size(max = 128, message = "maximum length 128")
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
     
     @NotNull(message = "Age should not be empty")
@@ -58,7 +58,7 @@ public class User {
     private String password;
     
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

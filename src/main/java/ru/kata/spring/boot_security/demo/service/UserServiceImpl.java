@@ -28,11 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User getUserByUsername(String username) {
-        User user = userRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
-        return user;
+        return userRepository.findByEmail(username);
     }
     
     @Override
@@ -56,6 +52,18 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("User not found with id: " + id);
         }
         userRepository.delete(userOptional.get());
+    }
+    
+    @Override
+    @Transactional
+    public void update(Long id, User user) {
+        Optional<User> userOptional = userRepository.findById(id);
+        
+        if (userOptional.isEmpty()) {
+            throw new EntityNotFoundException("User not found with id: " + id);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     

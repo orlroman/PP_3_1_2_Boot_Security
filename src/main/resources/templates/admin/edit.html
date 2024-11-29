@@ -6,22 +6,48 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/users/edit}" th:object="${user}">
-    <label for="name">Enter name:</label>
-    <input type="text" th:field="*{name}" id="name">
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
-    <br>
-    <label for="surname">Enter surname:</label>
-    <input type="text" th:field="*{surname}" id="surname">
-    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
-    <br>
-    <label for="yearOfBirth">Enter age:</label>
-    <input type="number" th:field="*{yearOfBirth}" id="yearOfBirth" name="yearOfBirth">
-    <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">YearOfBirth error</div>
-    <br>
-    <input type="hidden" name="id" th:value="${user.getId()}">
-    <input type="submit" value="Update"/>
+<form th:method="POST" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="firstName">First name:</label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName error</div>
+    <br/>
 
+    <label for="lastName">Last name:</label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName error</div>
+    <br/>
+
+    <label for="age">Age:</label>
+    <input type="number" th:field="*{age}" id="age">
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</div>
+    <br/>
+
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" id="email">
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+    <br/>
+
+    <label for="password">Password:</label>
+    <input type="password" th:field="*{password}" id="password" th:autocomplete="off">
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+    <br/>
+
+    <label for="roles">Roles:</label>
+    <div th:each="role : ${roles}">
+        <input type="checkbox" id="roles"
+               th:id="'role_' + ${role.getId()}"
+               th:name="'roles'"
+               th:value="${role.getId()}"
+               th:field="*{roles}"/>
+        <label th:for="'role_' + ${role.getId()}" th:text="${role.getTitle()}">Role</label>
+    </div>
+    <div style="color:red" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">role error</div>
+    <br/>
+
+    <input type="submit" value="Update"/>
+</form>
+<form th:action="@{/admin}" th:method="GET">
+    <input type="submit" value="Back"/>
 </form>
 </body>
 </html>

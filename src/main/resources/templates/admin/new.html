@@ -41,7 +41,7 @@
                    th:field="*{roles}"/>
             <label th:for="'role_' + ${role.getId()}" th:text="${role.getTitle()}">Role</label>
         </div>
-    <div style="color:red" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">password error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">role error</div>
     <br/>
 
     <input type="submit" value="Create"/>

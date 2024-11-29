@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Admin panel</title>
 </head>
 <body>
 
@@ -26,14 +26,12 @@
             <td th:each="role : ${user.getRoles()}" th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_') + ' '}">Role</td>
 
             <td>
-                <form th:action="@{/users/edit}" method="GET">
-                    <input type="hidden" name="id" th:value="${user.getId()}">
+                <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" method="GET">
                     <input type="submit" value="Edit"/>
                 </form>
             </td>
             <td>
-                <form th:action="@{/users/delete}" method="POST">
-                    <input type="hidden" name="id" th:value="${user.getId()}">
+                <form th:action="@{/admin/delete/{id}(id=${user.getId()})}" method="POST">
                     <input type="submit" value="Delete"/>
                 </form>
             </td>
